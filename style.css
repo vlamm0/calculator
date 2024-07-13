@@ -1,3 +1,6 @@
+* {
+    border: 2px solid black;
+}
 body {
     display: flex;
     justify-content: center;
@@ -13,14 +16,25 @@ body {
     padding: 3px;
 }
 
-.screen {
+div .screen {
     background-color: black;
     height: 85px;
     display: flex;
-    justify-content: start;
+    align-items: center;
+    justify-content: space-between; 
 }
 
 .clear {
-    align-self: flex-start;
+    align-self: flex-start; 
     padding: 5px;
+}
+
+p {
+    color: aliceblue;
+    height: 65px;
+    font-size: x-large;
+    margin-right: 25px;
+    display: flex;
+    align-items: center;
+
 }

@@ -37,13 +37,29 @@ function operate(arr) {
         
     }
 }
+function updateDisplay(text) {
+    if (text == "clear") {outputText = ""}
+    else {outputText += text}
+    document.querySelector("p").textContent = outputText
+}
+
+function pressButton(e) {
+    let char = e.target.textContent;
+    updateDisplay(char)
+}
+
+
 
 // send query results through operate to call correct operation
 //var query = prompt("query")
 //query = query.split(" ")
 //alert(operate(query))
 const SYMBOLS = [[],[" / "," * "," - "],["7","8","9"],["4","5","6"],["1","2","3"],["0", " = "," + "]]
+var outputText = "";
 const calc = document.querySelector(".calc")
+
+
+//code for DOM
 // make calc screen/buttons
 for (let i = 0; i < 6; i++) {
     const row = document.createElement("div")
@@ -53,8 +69,14 @@ for (let i = 0; i < 6; i++) {
         const clear = document.createElement("button");
         clear.setAttribute("class", "clear")
         clear.textContent = "clear"
+        clear.addEventListener("click", pressButton)
+        const output = document.createElement("p")
+        output.textContent = outputText
+        //const screen = document.querySelector(".screen")
+        //screen.style.display = flex
         row.appendChild(clear)
-    }
+        row.appendChild(output)
+    } else {
     row.style.display = "flex";
     row.style.flex = "auto"
     //row.style.height = "80px"
@@ -67,7 +89,10 @@ for (let i = 0; i < 6; i++) {
         const btn = document.createElement("button")
         btn.style.flexGrow = "1"
         btn.textContent = SYMBOLS[i][j]
+        btn.addEventListener("click", pressButton)
         row.appendChild(btn);
-    }
+    }}
+    //const screen = document.querySelector(".screen")
+    //screen.style.display = flex
     calc.appendChild(row)
 }
