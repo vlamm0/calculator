@@ -38,7 +38,31 @@ function operate(arr) {
     }
 }
 
-var query = prompt("query")
-query = query.split(" ")
 // send query results through operate to call correct operation
-alert(operate(query))
+//var query = prompt("query")
+//query = query.split(" ")
+//alert(operate(query))
+const SYMBOLS = [[],[" / "," * "," - "],["7","8","9"],["4","5","6"],["1","2","3"],["0", " + "," = "]]
+const calc = document.querySelector(".calc")
+// make calc screen/buttons
+for (let i = 0; i < 6; i++) {
+    const row = document.createElement("div")
+    if (i == 0) {
+        row.setAttribute("class", "screen");
+    }
+    row.style.display = "flex";
+    row.style.flex = "auto"
+    //row.style.height = "80px"
+    row.style.alignItems = "stretch"
+    row.style.justifyContent = "space-evenly"
+    for (let j = 0; j < 3; j++) {
+        if (i == 0) {
+            continue;
+        }
+        const btn = document.createElement("button")
+        btn.style.flexGrow = "1"
+        btn.textContent = SYMBOLS[i][j]
+        row.appendChild(btn);
+    }
+    calc.appendChild(row)
+}

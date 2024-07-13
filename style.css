@@ -1,0 +1,19 @@
+body {
+    display: flex;
+    justify-content: center;
+}
+
+.calc {
+    height: 500px;
+    width: 350px;
+    background-color: gray;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 3px;
+}
+
+.screen {
+    background-color: black;
+    height: 85px;
+}
