@@ -1,3 +1,4 @@
+// basic arithmetic functions
 function add(x,y) {
     return x + y
 }
@@ -11,12 +12,12 @@ function multiply(x,y) {
 }
 
 function divide(x,y) {
+    if (y == 0) {return "ERR0R"}
     return x/y;
 }
 
-// calls correct operation based on user input
-function operate(str) {
-    var arr = str.split(" ")
+// calls correct operation function based on user input
+function operate(arr) {
     let operand1 = Number(arr[0])
     let operand2 = Number(arr[2])
     let operation = arr[1];
@@ -34,28 +35,35 @@ function operate(str) {
             return divide(operand1,operand2);
             break;
         default:
-            alert("not a valid operator")
-        
+            alert("ERR0R")
     }
 }
-function updateDisplay(text) {
+
+// adds input and returns results appropriately 
+function updateDisplay(e) {
+    let text = e.target.textContent;
     if (text == "clear") {outputText = ""}
-    else if (text == " = ") {outputText = operate(outputText)}
+    else if (text == " = ") {outputText = operate(outputText.split(" ")).toString()}
     else {outputText += text}
+    if (outputText.split(" ").length >= 4) {
+        //stores every value into arr ex [4,+,4,+]
+        let tmp = outputText.split(" ");
+        tmp.pop()
+
+        //stores last value of arr as var and removes from tmp arr
+        let tmpOperator = " " + tmp.pop() + " ";
+        let result = operate(tmp)
+
+        //calc first operation, amend operator
+        if (result == "ERR0R") {outputText = result}
+        else {outputText = operate(tmp).toString() + tmpOperator}
+    }
+
     document.querySelector("p").textContent = outputText
 }
 
-function pressButton(e) {
-    let char = e.target.textContent;
-    updateDisplay(char)
-}
 
-
-
-// send query results through operate to call correct operation
-//var query = prompt("query")
-//query = query.split(" ")
-//alert(operate(query))
+// MAIN
 const SYMBOLS = [[],[" / "," * "," - "],["7","8","9"],["4","5","6"],["1","2","3"],["0", " = "," + "]]
 var outputText = "";
 const calc = document.querySelector(".calc")
@@ -65,36 +73,28 @@ const calc = document.querySelector(".calc")
 // make calc screen/buttons
 for (let i = 0; i < 6; i++) {
     const row = document.createElement("div")
+    row.setAttribute("class", "row")
     if (i == 0) {
         row.setAttribute("class", "screen");
         //create clear on screen row
         const clear = document.createElement("button");
         clear.setAttribute("class", "clear")
         clear.textContent = "clear"
-        clear.addEventListener("click", pressButton)
+        clear.addEventListener("click", updateDisplay)
         const output = document.createElement("p")
         output.textContent = outputText
-        //const screen = document.querySelector(".screen")
-        //screen.style.display = flex
         row.appendChild(clear)
         row.appendChild(output)
     } else {
-    row.style.display = "flex";
-    row.style.flex = "auto"
-    //row.style.height = "80px"
-    row.style.alignItems = "stretch"
-    row.style.justifyContent = "space-evenly"
-    for (let j = 0; j < 3; j++) {
-        if (i == 0) {
-            continue;
-        }
-        const btn = document.createElement("button")
-        btn.style.flexGrow = "1"
-        btn.textContent = SYMBOLS[i][j]
-        btn.addEventListener("click", pressButton)
-        row.appendChild(btn);
+        for (let j = 0; j < 3; j++) {
+            if (i == 0) {
+                continue;
+            }
+            const btn = document.createElement("button")
+            btn.style.flexGrow = "1"
+            btn.textContent = SYMBOLS[i][j]
+            btn.addEventListener("click", updateDisplay)
+            row.appendChild(btn);
     }}
-    //const screen = document.querySelector(".screen")
-    //screen.style.display = flex
     calc.appendChild(row)
 }
