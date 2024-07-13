@@ -15,7 +15,8 @@ function divide(x,y) {
 }
 
 // calls correct operation based on user input
-function operate(arr) {
+function operate(str) {
+    var arr = str.split(" ")
     let operand1 = Number(arr[0])
     let operand2 = Number(arr[2])
     let operation = arr[1];
@@ -39,6 +40,7 @@ function operate(arr) {
 }
 function updateDisplay(text) {
     if (text == "clear") {outputText = ""}
+    else if (text == " = ") {outputText = operate(outputText)}
     else {outputText += text}
     document.querySelector("p").textContent = outputText
 }
