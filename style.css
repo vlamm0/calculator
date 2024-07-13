@@ -16,4 +16,11 @@ body {
 .screen {
     background-color: black;
     height: 85px;
+    display: flex;
+    justify-content: start;
+}
+
+.clear {
+    align-self: flex-start;
+    padding: 5px;
 }

@@ -42,13 +42,18 @@ function operate(arr) {
 //var query = prompt("query")
 //query = query.split(" ")
 //alert(operate(query))
-const SYMBOLS = [[],[" / "," * "," - "],["7","8","9"],["4","5","6"],["1","2","3"],["0", " + "," = "]]
+const SYMBOLS = [[],[" / "," * "," - "],["7","8","9"],["4","5","6"],["1","2","3"],["0", " = "," + "]]
 const calc = document.querySelector(".calc")
 // make calc screen/buttons
 for (let i = 0; i < 6; i++) {
     const row = document.createElement("div")
     if (i == 0) {
         row.setAttribute("class", "screen");
+        //create clear on screen row
+        const clear = document.createElement("button");
+        clear.setAttribute("class", "clear")
+        clear.textContent = "clear"
+        row.appendChild(clear)
     }
     row.style.display = "flex";
     row.style.flex = "auto"
